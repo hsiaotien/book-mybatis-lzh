@@ -1,9 +1,8 @@
-package tk.myabatis.simple.mapper;
+package tk.mybatis.simple.mapper;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
-import tk.mybatis.simple.mapper.UserMapper;
 import tk.mybatis.simple.model.SysRole;
 import tk.mybatis.simple.model.SysUser;
 
@@ -241,6 +240,44 @@ public class UserMapperTest extends BaseMapperTest {
 			// 由于默认的sqlSessionFactory.openSession() 是不自动提交的
 			// 因此不手动执行commit 也不会提交到数据库
 			sqlSession.rollback();
+			// 不要忘记关闭sqlSession
+			sqlSession.close();
+		}
+	}
+
+	@Test
+	public void testSelectRolesByUserIdAndRoleEnabled() {
+		SqlSession sqlSession = getSqlSession();
+		try {
+			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			// 调用方法查询
+			List<SysRole> userList = userMapper.selectRolesByUserIdAndRoleEnabled00(1L, 1);
+			// 结果不能为空
+			Assert.assertNotNull(userList);
+			// 角色数量大于0个
+			Assert.assertTrue(userList.size() > 0);
+		} finally {
+			// 不要忘记关闭sqlSession
+			sqlSession.close();
+		}
+	}
+
+	@Test
+	public void testSelectRolesByUserIdAndRoleEnabled02() {
+		SqlSession sqlSession = getSqlSession();
+		SysUser user = new SysUser();
+		user.setId(1L);
+		SysRole role = new SysRole();
+		role.setEnabled(1);
+		try {
+			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			// 调用方法查询
+			List<SysRole> userList = userMapper.selectRolesByUserIdAndRoleEnabled01(user, role);
+			// 结果不能为空
+			Assert.assertNotNull(userList);
+			// 角色数量大于0个
+			Assert.assertTrue(userList.size() > 0);
+		} finally {
 			// 不要忘记关闭sqlSession
 			sqlSession.close();
 		}
