@@ -29,6 +29,13 @@
         </environment>
     </environments>
 
+    <!--配置多数据库的支持-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="Oracle" value="oracle"/>
+        <property name="MySQL" value="mysql"/>
+        <property name="SQL Server" value="sqlserver"/>
+    </databaseIdProvider>
+
     <!--<mappers>-->
         <!--<mapper resource="tk/mybatis/simple/mapper/UserMapper.xml"/>-->
         <!--<mapper resource="tk/mybatis/simple/mapper/RoleMapper.xml"/>-->
