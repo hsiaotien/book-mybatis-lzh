@@ -17,7 +17,7 @@
 		diskPersistent="true"/> 
 
 	<cache      
-		name="tk.mybatis.simple.mapper.RoleMapper"
+		name="RoleMapper"
 		maxElementsInMemory="3000"      
 		eternal="false"      
 		copyOnRead="true"
