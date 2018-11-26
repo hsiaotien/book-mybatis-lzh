@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MysqlContext" targetRuntime="MyBatis3"
+             defaultModelType="flat">
+        <!--一些属性配置-->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!--注释生成器，可以使用默认的，也可以仿照进行自定义-->
+        <commentGenerator type="tk.mybatis.simple.generator.MyCommentGenerator">
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        <!--连接数据库的信息 必选。-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mybatis"
+                        userId = "root"
+                        password="123">
+        </jdbcConnection>
+        <!--javaTypeResolver标签，指定java类型和JDBC类型如何转换， 有默认实现，可以类似注释生成器惊喜自定义，
+        一般使用默认配置， 不建议修改。
+        此外该标签下可以有一个property标签，指定forceBigDecimals的值（是否强制转换），默认false。
+        一般使用默认配置，按转换规则转换，无需配置-->
+        <!--此标签控制生成的实体类-->
+        <javaModelGenerator targetPackage="tk.mybatis.simple.model"
+                            targetProject="chap06-highlevel-query\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="false"/>
+        </javaModelGenerator>
+        <!--sql映射生成器（mapper.xml文件）的属性-->
+        <sqlMapGenerator targetPackage="tk.mybatis.simple.mapper"
+                         targetProject="chap06-highlevel-query\src\main\resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <!--用于配置java客户端生成器（Mapper接口）的属性，可选最多配置一个，不配置就不会生成mapper接口-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="tk.mybatis.simple.mapper"
+                             targetProject="chap06-highlevel-query\src\main\java"/>
+        <!--用于配置需要通过内省数据库的表，至少配置一个，可以配置多个-->
+        <table tableName="sys_role" domainObjectName="SysRole06">
+            <!--指定生成主键的属性-->
+            <generatedKey column="id" sqlStatement="MySql"/>
+            <!--columnRenamingRule 该标签在生成列之前对列进行重命名,最多一个-->
+            <!--columnOverride ，用于将某些默认计算的属性值更改为指定的值，可选，可以多个-->
+            <!--ignoreColumn 用于屏蔽不需要生成的列，可选，可以多个-->
+        </table>
+    </context>
+</generatorConfiguration>
